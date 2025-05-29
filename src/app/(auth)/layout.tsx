@@ -1,6 +1,8 @@
+'use client'
 import { Inter } from "next/font/google";
 import { GolangIcon } from "@/assets";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,32 +14,26 @@ export default function AuthLayout({
   return (
     <html lang="pt-br">
       <body className={inter.className}>
-        <div className="container relative flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-          <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
-            <div className="absolute inset-0 bg-primary" />
-            <div className="relative z-20 flex items-center text-lg font-medium">
-              <Image
-                src={GolangIcon}
-                alt="Golang Icon"
-                width={32}
-                height={32}
-                className="mr-2"
-              />
-              Go Message
-            </div>
-            <div className="relative z-20 mt-auto">
-              <blockquote className="space-y-2">
-                <p className="text-lg">
-                  The fastest way to send messages to your friends and family.
-                </p>
-                <footer className="text-sm">Go Message</footer>
-              </blockquote>
-            </div>
-          </div>
-          <div className="flex h-screen w-full items-center justify-center px-4">
-            {children}
-          </div>
-        </div>
+      <div className="flex flex-col md:flex-row h-screen w-screen md:overflow-hidden">
+      <motion.div 
+        className="flex flex-col items-center justify-center bg-primary w-full md:w-1/2 h-1/2 md:h-full"
+        initial={{ x: "-100%", opacity: 0 }}
+        animate={{ x: "0", opacity: 1 }}
+        transition={{ duration: 1 }}
+        >
+        <Image src={GolangIcon} alt="Logo" className="w-72 hidden md:block"/>
+        <h1 className="text-4xl font-bold text-white mt-4 md:mt-0">
+          Go Message
+        </h1>
+      </motion.div>
+      <motion.div className="flex flex-col justify-center items-center bg-white w-full md:w-1/2 h-1/2 md:h-full"
+        initial={{ x: "100%", opacity: 0 }}
+        animate={{ x: "0", opacity: 1 }}
+        transition={{ duration: 1 }}
+        >
+        {children}
+      </motion.div>
+      </div>
       </body>
     </html>
   );
